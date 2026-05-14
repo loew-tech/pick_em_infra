@@ -21,7 +21,7 @@ class PickEmStack(Stack):
             ),
             sort_key=dynamodb.Attribute(
                 name='created_at',
-                type=dynamodb.AttributeType.NUMBER
+                type=dynamodb.AttributeType.STRING
             ),
             billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST
         )
