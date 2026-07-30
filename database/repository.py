@@ -26,7 +26,7 @@ class ItemNotFoundError(RepositoryError):
 _user = os.environ["DYNAMODB_USER"]
 
 
-class PickemRepo:
+class PickEmRepo:
 
     def __init__(self):
         self._table = get_table()
@@ -48,10 +48,5 @@ class PickemRepo:
         )
         return Category.from_dict({NAME: category, CHOICES: response.get(ITEMS, [])})
 
-    def pick(self, categories: list[str], interest, effort: str) -> Any:
-        cats = [self.get_category(category) for category in categories]
-        pick_ = pick(cats, interest, effort)
-        if pick_.category == 'NOT FOUND':
-            raise ItemNotFoundError
 
-        return pick_.name, pick_.category
+repo = PickEmRepo()

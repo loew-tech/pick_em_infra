@@ -3,12 +3,14 @@ from random import randint
 
 from database.constants import TIERS, WEIGHTS
 from database.models import Category
+from database.repository import repo
 
 SelectionOption = namedtuple('Option', ['name', 'start', 'weight', 'category'])
 
 
-def pick(categories: list[Category], interest, effort) -> SelectionOption:
-    options = _get_options(categories, interest, effort)
+def pick(categories: list[str], interest, effort) -> SelectionOption:
+    cats = [repo.get_category(c) for c in categories]
+    options = _get_options(cats, interest, effort)
     return _pick_item(options)
 
 
