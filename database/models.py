@@ -1,3 +1,4 @@
+from datetime import datetime
 from dataclasses import dataclass
 
 
@@ -6,13 +7,20 @@ class Option:
     name: str
     interest: str
     effort: str
+    category_id: str
+    created_at: datetime
 
     @classmethod
     def from_dict(cls, option_dict: dict):
+        created_at_str = option_dict['created_at']
+        clean_str = created_at_str.replace("Z", "+00:00")
+        created_at_dt = datetime.fromisoformat(clean_str)
         return cls(
             name=option_dict['name'],
             interest=option_dict['interest'],
-            effort=option_dict['effort']
+            effort=option_dict['effort'],
+            category_id=option_dict['category_id'],
+            created_at=created_at_dt
         )
 
 
